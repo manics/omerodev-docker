@@ -37,6 +37,8 @@ RUN curl -o /opt/bin/gosu -fsSL \
 ADD entrypoint.sh /opt/bin/
 
 WORKDIR /home/build
+RUN mkdir src && \
+    chown build:build src
 
 EXPOSE 80 443 8080 4061 4063 4064
 
