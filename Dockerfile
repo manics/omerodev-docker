@@ -9,7 +9,6 @@ RUN git clone https://github.com/openmicroscopy/infrastructure.git \
     /opt/infrastructure
 
 ADD systemctl-mock.py /opt/bin/systemctl
-ADD entrypoint.sh /opt/bin/
 # Update systemd so that it doesn't overwrite our override
 RUN yum -y update systemd && \
     yum clean all && \
@@ -33,7 +32,7 @@ RUN useradd build && \
     echo 'build ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/build
 WORKDIR /home/build
 
-ENV PATH="/opt/bin:$PATH"
+ADD entrypoint.sh /opt/bin/
 
 EXPOSE 80 443 8080 4061 4063 4064
 
