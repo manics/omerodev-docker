@@ -1,7 +1,7 @@
 FROM centos:centos7
 MAINTAINER ome-devel@lists.openmicroscopy.org.uk
 
-RUN yum -y install epel-release git && \
+RUN yum -y install epel-release git sudo && \
     yum -y install ansible && \
     yum clean all
 
@@ -27,7 +27,11 @@ RUN echo "[$ANSIBLE_GROUP]" > /opt/inventory.hosts && \
 RUN echo -n systemd > /proc/1/comm && \
     ansible-playbook -i /opt/inventory.hosts \
         "/opt/infrastructure/ansible/$ANSIBLE_PLAYBOOK" && \
-    yum clean all && \
+    yum clean all
+
+RUN useradd build && \
+    echo 'build ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/build
+WORKDIR /home/build
 
 ENV PATH="/opt/bin:$PATH"
 
