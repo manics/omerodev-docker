@@ -24,6 +24,8 @@ commands = {
         "/usr/sbin/nginx -c /etc/nginx/nginx.conf -s quit",
     "reload nginx":
         "/usr/sbin/nginx -c /etc/nginx/nginx.conf -s reload",
+    "enable nginx":
+        "[ -f /usr/sbin/nginx ]",
     "show nginx":
         "pgrep nginx > /dev/null && echo ActiveState=active || echo ActiveState=inactive",
 }
