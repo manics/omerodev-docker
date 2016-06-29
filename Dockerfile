@@ -37,12 +37,12 @@ RUN curl -o /opt/bin/gosu -fsSL \
 ADD entrypoint.sh /opt/bin/
 
 WORKDIR /home/build
-RUN mkdir src && \
-    chown build:build src
+RUN mkdir /home/build/src /OMERO && \
+    chown build:build /home/build/src /OMERO
 
 EXPOSE 80 443 8080 4061 4063 4064
 
-VOLUME ["/OMERO", "/var/lib/pgsql/9.4/data"]
+VOLUME ["/home/build/src", "/OMERO", "/var/lib/pgsql/9.4/data"]
 
 # Set the default command to run when starting the container
 ENTRYPOINT ["/opt/bin/entrypoint.sh"]
