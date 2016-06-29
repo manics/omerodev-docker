@@ -30,9 +30,13 @@ RUN echo -n systemd > /proc/1/comm && \
 
 RUN useradd build && \
     echo 'build ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/build
-WORKDIR /home/build
 
+RUN curl -o /opt/bin/gosu -fsSL \
+    https://github.com/tianon/gosu/releases/download/1.9/gosu-amd64 && \
+    chmod +x /opt/bin/gosu
 ADD entrypoint.sh /opt/bin/
+
+WORKDIR /home/build
 
 EXPOSE 80 443 8080 4061 4063 4064
 
