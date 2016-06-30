@@ -1,0 +1,14 @@
+language: python
+sudo: required
+services:
+  - docker
+
+# Upgrade to latest docker-engine
+before_install:
+  - sudo apt-get update -qq
+  # This workaround is still required (last checked 20160630)
+  - sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" docker-engine
+
+script:
+# Requires external resources which may be flakey, so auto-retry once
+- docker build -t omerodev-docker . || docker build -t omerodev-docker .
