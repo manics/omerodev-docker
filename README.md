@@ -30,6 +30,9 @@ Example:
     cd openmicroscopy
     ./build.py build-default test-compile
     ./build.py test-unit
+    ~/venv/bin/omego db init --dbname omero --serverdir dist
+    dist/bin/omero admin start
+    ./build.py test-integration
 
 This image was built using https://github.com/openmicroscopy/infrastructure which assumes `systemd` is present.
 To remove this requirement `systemctl` has been mocked for some services, see `systemctl-mock.py`.
