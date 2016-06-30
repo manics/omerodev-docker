@@ -1,6 +1,8 @@
 omerodev-docker
 ===============
 
+[![Build Status](https://travis-ci.org/manics/omerodev-docker.svg)](https://travis-ci.org/manics/omerodev-docker)
+
 WARNING: Work in progress
 
 A self-contained image for developing and testing OMERO.
