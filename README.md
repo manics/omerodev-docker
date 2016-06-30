@@ -19,9 +19,17 @@ This will start PostgreSQL, Nginx, and will drop you into a `bash` shell with us
 This user has full `sudo` rights.
 
 This example uses three named volumes:
-- `omerodev-src`: An empty directory which should be used to store persistent data during development, for example `git clone --recursive https://github.com/openmicroscopy/openmicroscopy.git`
+- `omerodev-src`: An empty directory which should be used to store persistent data during development
 - `omerodev-pg`: The PostgreSQL data directory
 - `omerodev-omero`: The OMERO.server data directory
+
+Example:
+
+    cd src
+    git clone --recursive https://github.com/openmicroscopy/openmicroscopy.git
+    cd openmicroscopy
+    ./build.py build-default test-compile
+    ./build.py test-unit
 
 This image was built using https://github.com/openmicroscopy/infrastructure which assumes `systemd` is present.
 To remove this requirement `systemctl` has been mocked for some services, see `systemctl-mock.py`.
