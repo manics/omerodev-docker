@@ -36,6 +36,8 @@ RUN curl -o /opt/bin/gosu -fsSL \
     chmod +x /opt/bin/gosu
 ADD entrypoint.sh /opt/bin/
 
+ADD omerodev-docker-post.yml /opt/infrastructure/ansible/
+
 WORKDIR /home/build
 RUN mkdir /home/build/src /OMERO && \
     chown build:build /home/build/src /OMERO
