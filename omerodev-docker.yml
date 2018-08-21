@@ -1,0 +1,74 @@
+---
+
+- hosts: localhost
+  become: yes
+
+  roles:
+
+  - role: openmicroscopy.basedeps
+  - role: openmicroscopy.ice
+    ice_version: "3.6"
+    ice_python_wheel: https://github.com/openmicroscopy/zeroc-ice-py-centos7/releases/download/0.0.3/zeroc_ice-3.6.4-cp27-cp27mu-linux_x86_64.whl
+  - role: openmicroscopy.java
+    java_jdk_install: True
+  - role: openmicroscopy.local-accounts
+    local_accounts_create:
+    - user: build
+      uid: 1000
+  - role: openmicroscopy.omero-python-deps
+  - role: openmicroscopy.sudoers
+    sudoers_individual_commands:
+    - user: build
+      become: ALL
+      command: "NOPASSWD: ALL"
+  - role: openmicroscopy.versioncontrol-utils
+
+  - role: openmicroscopy.postgresql
+    postgresql_version: "9.6"
+    postgresql_databases:
+    - name: omero
+      owner: omero
+    postgresql_users:
+    - user: omero
+      password: omero
+      databases: [omero]
+    postgresql_server_listen: "'*'"
+    postgresql_server_auth:
+    - database: all
+      user: omero
+      address: 0.0.0.0/0
+    postgresql_server_chown_datadir: True
+
+  tasks:
+
+  - name: Adjust build directory permissions
+    file:
+      path: /home/build
+      owner: build
+      group: build
+      state: directory
+      mode: 0755
+  - name: install tools
+    yum:
+      name:
+      # Build tools
+      - ant
+      - ant-contrib
+      - make
+      - maven
+      # Python
+      - python-devel
+      - python-pip
+      - python-virtualenv
+      # Utilities
+      - GraphicsMagick
+      state: present
+
+  - name: create default virtualenv
+    become: yes
+    become_user: build
+    pip:
+      name: omego
+      state: latest
+      virtualenv: /home/build/src/venv
+      virtualenv_site_packages: yes

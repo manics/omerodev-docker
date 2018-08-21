@@ -1,0 +1,34 @@
+---
+
+- src: openmicroscopy.basedeps
+  version: 1.0.0
+
+- src: openmicroscopy.ice
+  version: 2.1.1
+
+- src: openmicroscopy.java
+  version: 2.0.1
+
+- src: openmicroscopy.local-accounts
+  version: 1.0.1
+
+- src: openmicroscopy.omero-common
+  version: 0.1.0
+
+- src: openmicroscopy.omego
+  version: 0.1.1
+
+- src: openmicroscopy.omero-python-deps
+  version: 1.1.0
+
+- src: openmicroscopy.postgresql
+  version: 3.0.1
+
+- name: openmicroscopy.selinux-utils
+  version: 1.0.3
+
+- src: openmicroscopy.sudoers
+  version: 1.0.0
+
+- src: openmicroscopy.versioncontrol-utils
+  version: 1.0.0

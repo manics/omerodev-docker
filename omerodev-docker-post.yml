@@ -1,21 +1,31 @@
 ---
 
 - hosts: localhost
-  roles:
-    - role: postgresql
-  vars:
-    - postgresql_users_databases:
-      - user: omero
-        password: omero
-        databases: [omero]
+  tasks:
 
-  post_tasks:
+  - name: create postgres users
+    become: yes
+    become_user: postgres
+    postgresql_user:
+      encrypted: yes
+      name: omero
+      password: omero
+      state: present
 
-    - name: create default virtualenv
-      become: yes
-      become_user: build
-      pip:
-        name: omego
-        state: latest
-        virtualenv: /home/build/venv
-        virtualenv_site_packages: yes
+  - name: create postgres databases
+    become: yes
+    become_user: postgres
+    postgresql_db:
+      encoding: UTF-8
+      name: omero
+      owner: omero
+      state: present
+
+  - name: create default virtualenv
+    become: yes
+    become_user: build
+    pip:
+      name: omego
+      state: latest
+      virtualenv: /home/build/src/venv
+      virtualenv_site_packages: yes
