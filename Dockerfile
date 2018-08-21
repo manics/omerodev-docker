@@ -29,8 +29,8 @@ ADD entrypoint.sh /opt/bin/
 ADD omerodev-docker-post.yml /opt/install/
 
 WORKDIR /home/build
-RUN mkdir /home/build/src /OMERO && \
-    chown build:build /home/build/src /OMERO
+RUN mkdir /OMERO && \
+    chown build:build /OMERO
 
 EXPOSE 80 443 8080 4061 4063 4064
 
